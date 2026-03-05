@@ -3,14 +3,46 @@
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
 import Link from "next/link";
+import { supabase } from "@/lib/supabase/client";
 
 export default function Header() {
-    const { cart, removeFromCart, total } = useCart();
+    const { cart, removeFromCart, clearCart, total, affiliateId } = useCart();
     const [isCartOpen, setIsCartOpen] = useState(false);
+    const [isCheckingOut, setIsCheckingOut] = useState(false);
 
-    const handleCheckout = () => {
-        alert("前往結帳... (結帳系統即將上線)");
-        setIsCartOpen(false);
+    const handleCheckout = async () => {
+        setIsCheckingOut(true);
+        try {
+            // 獲取當前登入使用者（如果未登入也可結帳）
+            const { data: { user } } = await supabase.auth.getUser();
+
+            const orderData = {
+                customer_id: user?.id || null, // 允許未登入購買
+                affiliate_id: affiliateId || null, // 如果有推廣者推薦代碼
+                total_amount: total,
+                items: cart,
+                status: 'completed' // 模擬直接付款成功
+            };
+
+            const { error } = await supabase.from('orders').insert([orderData]);
+
+            if (error) {
+                // 如果是 RLS 權限問題提供明確指引
+                if (error.code === '42501' || error.message?.includes('policy')) {
+                    alert("請先至 Supabase SQL Editor 執行以下語法開啟寫入權限：\nCREATE POLICY \"允許新增訂單\" ON public.orders FOR INSERT WITH CHECK (true);");
+                } else {
+                    throw error;
+                }
+            } else {
+                alert("結帳成功！您的選品已成功轉為訂單。");
+                clearCart();
+                setIsCartOpen(false);
+            }
+        } catch (error: any) {
+            alert("結帳失敗: " + error.message);
+        } finally {
+            setIsCheckingOut(false);
+        }
     };
 
     return (
@@ -82,10 +114,10 @@ export default function Header() {
                             </div>
                             <button
                                 onClick={handleCheckout}
-                                disabled={cart.length === 0}
+                                disabled={cart.length === 0 || isCheckingOut}
                                 className="w-full luxury-button disabled:opacity-50"
                             >
-                                結帳
+                                {isCheckingOut ? "處理中..." : "結帳"}
                             </button>
                         </div>
                     </div>
