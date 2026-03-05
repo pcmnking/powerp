@@ -27,11 +27,11 @@ export default function RootLayout({
                         <header className="fixed top-0 left-0 w-full z-50 px-8 py-6 flex justify-between items-center text-black">
                             <div className="text-2xl font-serif tracking-ultra uppercase">Luxe</div>
                             <nav className="hidden md:flex space-x-8 text-xs uppercase tracking-widest">
-                                <a href="/" className="hover:opacity-50 transition-opacity">Collection</a>
-                                <a href="/vendor/dashboard" className="hover:opacity-50 transition-opacity">Vendor</a>
-                                <a href="/affiliate/dashboard" className="hover:opacity-50 transition-opacity">Affiliate</a>
-                                <a href="/admin/dashboard" className="hover:opacity-50 transition-opacity">Admin</a>
-                                <a href="/login" className="hover:opacity-50 transition-opacity">Account</a>
+                                <a href="/" className="hover:opacity-50 transition-opacity">系列</a>
+                                <a href="/vendor/dashboard" className="hover:opacity-50 transition-opacity">供應商</a>
+                                <a href="/affiliate/dashboard" className="hover:opacity-50 transition-opacity">推廣者</a>
+                                <a href="/admin/dashboard" className="hover:opacity-50 transition-opacity">管理頁</a>
+                                <a href="/login" className="hover:opacity-50 transition-opacity">帳戶</a>
                             </nav>
                         </header>
                         <main className="pt-24 min-h-screen">
@@ -41,17 +41,17 @@ export default function RootLayout({
                             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
                                 <div>
                                     <div className="text-xl font-serif tracking-widest uppercase mb-6">Luxe</div>
-                                    <p className="text-sm text-gray-500 max-w-xs">Curated minimalist excellence for the modern lifestyle.</p>
+                                    <p className="text-sm text-gray-500 max-w-xs">為現代生活策劃的極簡卓越體驗。</p>
                                 </div>
                                 <div>
-                                    <h4 className="text-xs uppercase tracking-widest mb-6">Support</h4>
+                                    <h4 className="text-xs uppercase tracking-widest mb-6">服務與支援</h4>
                                     <ul className="text-sm text-gray-400 space-y-4">
-                                        <li><a href="#" className="hover:text-black transition-colors">Client Service</a></li>
-                                        <li><a href="#" className="hover:text-black transition-colors">Shipping & Returns</a></li>
+                                        <li><a href="#" className="hover:text-black transition-colors">客戶服務</a></li>
+                                        <li><a href="#" className="hover:text-black transition-colors">運送與退換貨</a></li>
                                     </ul>
                                 </div>
                                 <div>
-                                    <h4 className="text-xs uppercase tracking-widest mb-6">Follow</h4>
+                                    <h4 className="text-xs uppercase tracking-widest mb-6">關注我們</h4>
                                     <ul className="text-sm text-gray-400 space-y-4">
                                         <li><a href="#" className="hover:text-black transition-colors">Instagram</a></li>
                                         <li><a href="#" className="hover:text-black transition-colors">YouTube</a></li>

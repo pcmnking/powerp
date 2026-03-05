@@ -5,13 +5,13 @@ export default function Page() {
             <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 bg-[#f9f8f6] -z-10" />
                 <div className="text-center space-y-8 px-8">
-                    <p className="text-[10px] uppercase tracking-[0.4em] text-gray-400">Autumn / Winter 2026</p>
+                    <p className="text-[10px] uppercase tracking-[0.4em] text-gray-400">2026 秋冬系列</p>
                     <h1 className="text-5xl md:text-7xl font-serif tracking-widest uppercase leading-tight">
-                        The Essence <br /> of Simplicity
+                        極簡主義 <br /> 的本質
                     </h1>
                     <div className="pt-8">
-                        <a href="/login" className="luxury-button">
-                            Explore Collection
+                        <a href="/products" className="luxury-button">
+                            探索系列
                         </a>
                     </div>
                 </div>
