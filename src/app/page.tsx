@@ -1,4 +1,4 @@
-export default function HomePage() {
+export default function Page() {
     return (
         <div className="space-y-24 pb-24">
             {/* Hero Section */}
