@@ -5,9 +5,11 @@ import { supabase } from "@/lib/supabase/client";
 
 export default function Page() {
     const [featuredProducts, setFeaturedProducts] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchFeatured = async () => {
+            setLoading(true);
             const { data } = await supabase
                 .from("products")
                 .select("*")
@@ -15,9 +17,40 @@ export default function Page() {
                 .order("created_at", { ascending: false });
 
             if (data) setFeaturedProducts(data);
+            setLoading(false);
         };
         fetchFeatured();
     }, []);
+
+    const featuredList = featuredProducts.length > 0 ? (
+        featuredProducts.map((product) => (
+            <a key={product.id} href={`/products/${product.slug}`} className="group cursor-pointer">
+                <div className="aspect-[3/4] bg-gray-50 mb-6 overflow-hidden relative">
+                    <img
+                        src={product.images?.[0] || 'https://via.placeholder.com/800x1200'}
+                        alt={product.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-5 transition-all duration-500" />
+                </div>
+                <div className="space-y-2 text-center">
+                    <h3 className="text-xs uppercase tracking-widest font-medium">{product.title}</h3>
+                    <p className="font-serif text-sm italic text-gray-500">{product.category || "精品選物"}</p>
+                    <p className="text-xs tracking-widest mt-4">NT$ {product.price?.toLocaleString()}</p>
+                </div>
+            </a>
+        ))
+    ) : (
+        [1, 2, 3].map((i) => (
+            <div key={i} className="group cursor-pointer animate-pulse">
+                <div className="aspect-[3/4] bg-gray-100 mb-6 overflow-hidden relative" />
+                <div className="space-y-4 flex flex-col items-center">
+                    <div className="h-2 w-24 bg-gray-100" />
+                    <div className="h-2 w-16 bg-gray-100" />
+                </div>
+            </div>
+        ))
+    );
 
     return (
         <div className="space-y-24 pb-24">
@@ -46,35 +79,7 @@ export default function Page() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
-                    {featuredProducts.length > 0 ? (
-                        featuredProducts.map((product) => (
-                            <a key={product.id} href={`/products/${product.slug}`} className="group cursor-pointer">
-                                <div className="aspect-[3/4] bg-gray-50 mb-6 overflow-hidden relative">
-                                    <img
-                                        src={product.images?.[0] || 'https://via.placeholder.com/800x1200'}
-                                        alt={product.title}
-                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                                    />
-                                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-5 transition-all duration-500" />
-                                </div>
-                                <div className="space-y-2 text-center">
-                                    <h3 className="text-xs uppercase tracking-widest font-medium">{product.title}</h3>
-                                    <p className="font-serif text-sm italic text-gray-500">{product.category || "精品選物"}</p>
-                                    <p className="text-xs tracking-widest mt-4">NT$ {product.price?.toLocaleString()}</p>
-                                </div>
-                            </a>
-                        ))
-                    ) : (
-                        [1, 2, 3].map((i) => (
-                            <div key={i} className="group cursor-pointer animate-pulse">
-                                <div className="aspect-[3/4] bg-gray-100 mb-6 overflow-hidden relative" />
-                                <div className="space-y-4 flex flex-col items-center">
-                                    <div className="h-2 w-24 bg-gray-100" />
-                                    <div className="h-2 w-16 bg-gray-100" />
-                                </div>
-                            </div>
-                        ))
-                    )}
+                    {featuredList}
                 </div>
             </section>
         </div>
