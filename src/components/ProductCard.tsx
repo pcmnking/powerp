@@ -10,15 +10,15 @@ export default function ProductCard({ product }: { product: any }) {
                     />
                 ) : (
                     <div className="absolute inset-0 flex items-center justify-center text-[10px] uppercase tracking-widest text-gray-300">
-                        No Image
+                        暫無圖片
                     </div>
                 )}
                 <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-5 transition-all duration-500" />
             </div>
             <div className="space-y-2 text-center">
                 <h3 className="text-xs uppercase tracking-widest font-medium">{product.title}</h3>
-                <p className="font-serif text-sm italic text-gray-500">{product.category || 'Curated Series'}</p>
-                <p className="text-xs tracking-widest mt-4">${product.price?.toLocaleString()}</p>
+                <p className="font-serif text-sm italic text-gray-500">{product.category || '精品系列'}</p>
+                <p className="text-xs tracking-widest mt-4">NT$ {product.price?.toLocaleString()}</p>
             </div>
         </div>
     );

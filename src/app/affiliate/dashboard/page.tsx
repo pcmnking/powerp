@@ -3,107 +3,92 @@
 import { useState } from "react";
 
 export default function AffiliateDashboard() {
-    const [selectedProduct, setSelectedProduct] = useState("1");
+    const [productUrl, setProductUrl] = useState("");
     const [generatedLink, setGeneratedLink] = useState("");
+    const affiliateCode = "LUXE_PRO_888"; // 模擬推廣代碼
 
-    const products = [
-        { id: "1", title: "Minimalist Marble Table", slug: "minimalist-marble-table" },
-        { id: "2", title: "Brushed Brass Sconce", slug: "brushed-brass-sconce" },
-        { id: "3", title: "Abstract Line Art #4", slug: "abstract-line-art-4" },
-    ];
-
-    const handleGenerate = () => {
-        const product = products.find(p => p.id === selectedProduct);
-        const baseUrl = window.location.origin;
-        const link = `${baseUrl}/products/${product?.slug}?affiliate_id=AFF_USER_888`;
+    const generateLink = () => {
+        if (!productUrl) return;
+        const link = `${productUrl}${productUrl.includes("?") ? "&" : "?"}affiliate_id=${affiliateCode}`;
         setGeneratedLink(link);
     };
 
     return (
-        <div className="max-w-6xl mx-auto px-8 py-12">
-            <div className="mb-16 space-y-4">
-                <h1 className="text-4xl font-serif tracking-widest uppercase">Promoter Space</h1>
-                <p className="text-[10px] text-gray-400 uppercase tracking-widest">Your bridge to curated influence.</p>
-            </div>
-
-            {/* Stats Overview */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
-                {[
-                    { label: "Total Clicks", value: "1,204", growth: "+12%" },
-                    { label: "Conversions", value: "84", growth: "+5%" },
-                    { label: "Unpaid Earnings", value: "$4,250.00", growth: "Top 5%" },
-                ].map((stat, i) => (
-                    <div key={i} className="p-8 border border-gray-100 glass-morphism space-y-4">
-                        <p className="text-[10px] uppercase tracking-widest text-gray-400">{stat.label}</p>
-                        <p className="text-2xl font-serif tracking-widest">{stat.value}</p>
-                        <p className="text-[9px] uppercase tracking-widest text-gold-accent italic">{stat.growth}</p>
-                    </div>
-                ))}
+        <div className="max-w-7xl mx-auto px-8 py-12">
+            <div className="mb-24 space-y-4">
+                <h1 className="text-4xl font-serif tracking-widest uppercase">推廣者中心</h1>
+                <p className="text-[10px] text-gray-400 uppercase tracking-widest">分享卓越，獲取回報。</p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
-                {/* Link Generator */}
+                {/* 連結工廠 */}
                 <div className="space-y-12">
-                    <div className="space-y-4">
-                        <h2 className="text-xl font-serif tracking-widest uppercase">Link Factory</h2>
-                        <p className="text-xs text-gray-400 leading-relaxed">Select a masterpiece from our collection to generate your bespoke tracking link.</p>
-                    </div>
-
-                    <div className="space-y-8">
-                        <div className="flex flex-col space-y-2">
-                            <label className="text-[10px] uppercase tracking-widest text-gray-400">Select Masterpiece</label>
-                            <select
-                                className="luxury-input appearance-none"
-                                value={selectedProduct}
-                                onChange={(e) => setSelectedProduct(e.target.value)}
-                            >
-                                {products.map(p => (
-                                    <option key={p.id} value={p.id}>{p.title}</option>
-                                ))}
-                            </select>
+                    <div className="space-y-6">
+                        <h2 className="text-xs uppercase tracking-widest text-gray-500 border-b pb-4">連結工廠</h2>
+                        <div className="flex flex-col space-y-4">
+                            <label className="text-[10px] uppercase tracking-widest text-gray-400">商品頁面連結</label>
+                            <input
+                                type="text"
+                                className="luxury-input"
+                                placeholder="貼上 Luxe 商品網址..."
+                                value={productUrl}
+                                onChange={(e) => setProductUrl(e.target.value)}
+                            />
+                            <button onClick={generateLink} className="luxury-button w-full mt-4">
+                                生成推廣連結
+                            </button>
                         </div>
-
-                        <button onClick={handleGenerate} className="luxury-button w-full">
-                            Forge Tracking Link
-                        </button>
-
-                        {generatedLink && (
-                            <div className="p-4 bg-gray-50 border border-gray-100 space-y-2 overflow-hidden">
-                                <p className="text-[9px] uppercase tracking-widest text-gray-400">Your Bespoke URL</p>
-                                <code className="text-[10px] break-all text-gold-accent">{generatedLink}</code>
-                                <button
-                                    onClick={() => {
-                                        navigator.clipboard.writeText(generatedLink);
-                                        alert("Link copied to clipboard");
-                                    }}
-                                    className="block mt-4 text-[9px] uppercase tracking-widest text-black underline underline-offset-4"
-                                >
-                                    Copy URL
-                                </button>
-                            </div>
-                        )}
                     </div>
+
+                    {generatedLink && (
+                        <div className="p-8 bg-gray-50 border border-gray-100 space-y-4 animate-in fade-in duration-700">
+                            <p className="text-[10px] uppercase tracking-widest text-gray-400">您的專屬連結：</p>
+                            <p className="text-xs break-all font-mono text-gray-600">{generatedLink}</p>
+                            <button
+                                onClick={() => {
+                                    navigator.clipboard.writeText(generatedLink);
+                                    alert("連結已複製到剪貼簿");
+                                }}
+                                className="text-[10px] uppercase tracking-widest border-b border-black pb-1 hover:opacity-50 transition-opacity"
+                            >
+                                複製連結
+                            </button>
+                        </div>
+                    )}
                 </div>
 
-                {/* Recent Performance Details */}
-                <div className="space-y-8">
-                    <h2 className="text-xs uppercase tracking-widest text-gray-500 mb-8 border-b pb-4">Real-time Performance</h2>
-                    <div className="space-y-6">
-                        {[1, 2, 3].map((i) => (
-                            <div key={i} className="flex justify-between items-center text-xs tracking-widest py-4 border-b border-gray-50">
-                                <div className="space-y-1">
-                                    <p className="uppercase">Click Captured</p>
-                                    <p className="text-[9px] text-gray-400 uppercase italic">Minimalist Marble Table • 2m ago</p>
-                                </div>
-                                <p className="text-gold-accent">$0.00</p>
+                {/* 績效概覽 */}
+                <div className="space-y-12">
+                    <h2 className="text-xs uppercase tracking-widest text-gray-500 border-b pb-4">推廣績效概覽</h2>
+                    <div className="grid grid-cols-2 gap-12">
+                        {[
+                            { label: "點擊次數", value: "1,204" },
+                            { label: "轉換次數", value: "48" },
+                            { label: "預估佣金 (TWD)", value: "NT$ 15,600" },
+                            { label: "轉換率", value: "3.9%" },
+                        ].map((stat, i) => (
+                            <div key={i} className="space-y-2">
+                                <p className="text-[9px] uppercase tracking-widest text-gray-400">{stat.label}</p>
+                                <p className="text-xl font-serif tracking-widest">{stat.value}</p>
                             </div>
                         ))}
-                        <div className="flex justify-between items-center text-xs tracking-widest py-4 border-b border-gray-50">
-                            <div className="space-y-1">
-                                <p className="uppercase">Conversion Verified</p>
-                                <p className="text-[9px] text-gray-400 uppercase italic">Brushed Brass Sconce • 45m ago</p>
-                            </div>
-                            <p className="text-black font-medium">+$85.00</p>
+                    </div>
+
+                    <div className="pt-12 space-y-8">
+                        <h3 className="text-[10px] uppercase tracking-widest text-gray-400">即時動態</h3>
+                        <div className="space-y-4">
+                            {[
+                                { event: "商品點擊", time: "2 分鐘前", detail: "大理石邊桌" },
+                                { event: "成交轉換", time: "1 小時前", detail: "拉絲黃銅壁燈" },
+                            ].map((item, i) => (
+                                <div key={i} className="flex justify-between items-center py-4 border-b border-gray-50 text-[10px] tracking-widest">
+                                    <div className="space-x-4">
+                                        <span className="uppercase text-black">{item.event}</span>
+                                        <span className="text-gray-400 italic">{item.detail}</span>
+                                    </div>
+                                    <span className="text-gray-300 uppercase">{item.time}</span>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
