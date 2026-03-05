@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
+import { Product } from "@/types/product";
 import ProductCard from "@/components/ProductCard";
 
 export default function ProductsPage() {
-    const [products, setProducts] = useState<any[]>([]);
+    const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -37,7 +38,7 @@ export default function ProductsPage() {
                 </div>
             ) : products.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
-                    {products.map((p) => (
+                    {products.map((p: Product) => (
                         <a key={p.id} href={`/products/${p.slug}`}>
                             <ProductCard product={p} />
                         </a>

@@ -1,4 +1,6 @@
-export default function ProductCard({ product }: { product: any }) {
+import { Product } from "@/types/product";
+
+export default function ProductCard({ product }: { product: Product }) {
     return (
         <div className="group cursor-pointer">
             <div className="aspect-[3/4] bg-gray-50 mb-6 overflow-hidden relative">
