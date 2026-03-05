@@ -67,16 +67,15 @@ export default function Page() {
                             </a>
                         ))
                     ) : (
-                        {
-                            [1, 2, 3].map((i) => (
-                                <div key={i} className="group cursor-pointer animate-pulse">
-                                    <div className="aspect-[3/4] bg-gray-100 mb-6 overflow-hidden relative" />
-                                    <div className="space-y-4 flex flex-col items-center">
-                                        <div className="h-2 w-24 bg-gray-100" />
-                                        <div className="h-2 w-16 bg-gray-100" />
-                                    </div>
+                        [1, 2, 3].map((i) => (
+                            <div key={i} className="group cursor-pointer animate-pulse">
+                                <div className="aspect-[3/4] bg-gray-100 mb-6 overflow-hidden relative" />
+                                <div className="space-y-4 flex flex-col items-center">
+                                    <div className="h-2 w-24 bg-gray-100" />
+                                    <div className="h-2 w-16 bg-gray-100" />
                                 </div>
-                            ))
+                            </div>
+                        ))
                     )}
                 </div>
             </section>
