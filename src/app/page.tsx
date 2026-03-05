@@ -21,7 +21,6 @@ export default function Page() {
 
     return (
         <div className="space-y-24 pb-24">
-            {/* 英雄區塊 */}
             <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 bg-[#f9f8f6] -z-10" />
                 <div className="text-center space-y-8 px-8">
@@ -37,7 +36,6 @@ export default function Page() {
                 </div>
             </section>
 
-            {/* 精選系列 */}
             <section className="max-w-7xl mx-auto px-8">
                 <div className="flex justify-between items-end mb-16">
                     <div className="space-y-4 text-left">
