@@ -1,7 +1,17 @@
 import { createClient } from '@supabase/supabase-js';
 
-// 使用預留佔位符，防止 Vercel 構建時因為缺少環境變數而崩潰
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://dummy.supabase.co';
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'dummy';
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// 檢查必要金鑰，確保在運行時提供明確反饋
+if (!supabaseUrl || !supabaseAnonKey) {
+    if (typeof window !== 'undefined') {
+        console.warn('Supabase 配置不完整，部分功能可能受限。請檢查 Vercel 環境變數。');
+    }
+}
+
+// 預留構建期間的佔位符，確保預渲染順利通過
+export const supabase = createClient(
+    supabaseUrl || 'https://placeholder-url.supabase.co',
+    supabaseAnonKey || 'placeholder-key'
+);

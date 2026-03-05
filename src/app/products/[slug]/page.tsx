@@ -5,11 +5,12 @@ import YouTubeEmbed from "@/components/YouTubeEmbed";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
+import { Product } from "@/types/product";
 
 export default function ProductDetailPage() {
     const { slug } = useParams();
     const { addToCart } = useCart();
-    const [product, setProduct] = useState<any>(null);
+    const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

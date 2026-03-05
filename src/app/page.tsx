@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
+import { Product } from "@/types/product";
 
 export default function Page() {
-    const [featuredProducts, setFeaturedProducts] = useState<any[]>([]);
+    const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -23,7 +24,7 @@ export default function Page() {
     }, []);
 
     const featuredList = featuredProducts.length > 0 ? (
-        featuredProducts.map((product) => (
+        featuredProducts.map((product: Product) => (
             <a key={product.id} href={`/products/${product.slug}`} className="group cursor-pointer">
                 <div className="aspect-[3/4] bg-gray-50 mb-6 overflow-hidden relative">
                     <img

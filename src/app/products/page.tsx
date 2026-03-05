@@ -18,7 +18,7 @@ export default function ProductsPage() {
                 .order("created_at", { ascending: false });
 
             if (!error && data) {
-                setProducts(data);
+                setProducts(data as Product[]);
             }
             setLoading(false);
         }
