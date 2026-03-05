@@ -24,7 +24,7 @@ export default function RootLayout({
             <body className="antialiased bg-white">
                 <Suspense fallback={<div className="fixed inset-0 flex items-center justify-center font-serif uppercase tracking-widest text-xs">Loading Luxe...</div>}>
                     <CartProvider>
-                        <header className="fixed top-0 left-0 w-full z-50 px-8 py-6 flex justify-between items-center mix-blend-difference text-white">
+                        <header className="fixed top-0 left-0 w-full z-50 px-8 py-6 flex justify-between items-center text-black">
                             <div className="text-2xl font-serif tracking-ultra uppercase">Luxe</div>
                             <nav className="hidden md:flex space-x-8 text-xs uppercase tracking-widest">
                                 <a href="/" className="hover:opacity-50 transition-opacity">Collection</a>
