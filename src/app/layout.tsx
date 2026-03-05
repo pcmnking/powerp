@@ -1,0 +1,67 @@
+import type { Metadata } from "next";
+import { Suspense } from "react";
+import { CartProvider } from "@/context/CartContext";
+import "./globals.css";
+
+export const metadata: Metadata = {
+    title: "LUXE | Curated Selection",
+    description: "Minimalist Luxury E-commerce & Affiliate Platform",
+};
+
+export default function RootLayout({
+    children,
+}: Readonly<{
+    children: React.ReactNode;
+}>) {
+    return (
+        <html lang="zh-TW">
+            <head>
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&display=swap"
+                    rel="stylesheet"
+                />
+            </head>
+            <body className="antialiased bg-white">
+                <Suspense fallback={<div className="fixed inset-0 flex items-center justify-center font-serif uppercase tracking-widest text-xs">Loading Luxe...</div>}>
+                    <CartProvider>
+                        <header className="fixed top-0 left-0 w-full z-50 px-8 py-6 flex justify-between items-center mix-blend-difference text-white">
+                            <div className="text-2xl font-serif tracking-ultra uppercase">Luxe</div>
+                            <nav className="hidden md:flex space-x-8 text-xs uppercase tracking-widest">
+                                <a href="/" className="hover:opacity-50 transition-opacity">Collection</a>
+                                <a href="/vendor/dashboard" className="hover:opacity-50 transition-opacity">Vendor</a>
+                                <a href="/affiliate/dashboard" className="hover:opacity-50 transition-opacity">Affiliate</a>
+                                <a href="/admin/dashboard" className="hover:opacity-50 transition-opacity">Admin</a>
+                                <a href="/login" className="hover:opacity-50 transition-opacity">Account</a>
+                            </nav>
+                        </header>
+                        <main className="pt-24 min-h-screen">
+                            {children}
+                        </main>
+                        <footer className="px-8 py-12 border-t border-gray-100 mt-24">
+                            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+                                <div>
+                                    <div className="text-xl font-serif tracking-widest uppercase mb-6">Luxe</div>
+                                    <p className="text-sm text-gray-500 max-w-xs">Curated minimalist excellence for the modern lifestyle.</p>
+                                </div>
+                                <div>
+                                    <h4 className="text-xs uppercase tracking-widest mb-6">Support</h4>
+                                    <ul className="text-sm text-gray-400 space-y-4">
+                                        <li><a href="#" className="hover:text-black transition-colors">Client Service</a></li>
+                                        <li><a href="#" className="hover:text-black transition-colors">Shipping & Returns</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 className="text-xs uppercase tracking-widest mb-6">Follow</h4>
+                                    <ul className="text-sm text-gray-400 space-y-4">
+                                        <li><a href="#" className="hover:text-black transition-colors">Instagram</a></li>
+                                        <li><a href="#" className="hover:text-black transition-colors">YouTube</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </footer>
+                    </CartProvider>
+                </Suspense>
+            </body>
+        </html>
+    );
+}
