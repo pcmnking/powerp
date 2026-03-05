@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { CartProvider } from "@/context/CartContext";
+import Header from "@/components/Header";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -24,16 +25,7 @@ export default function RootLayout({
             <body className="antialiased bg-white">
                 <Suspense fallback={<div className="fixed inset-0 flex items-center justify-center font-serif uppercase tracking-widest text-xs">Loading Luxe...</div>}>
                     <CartProvider>
-                        <header className="fixed top-0 left-0 w-full z-50 px-8 py-6 flex justify-between items-center text-black">
-                            <div className="text-2xl font-serif tracking-ultra uppercase">Luxe</div>
-                            <nav className="hidden md:flex space-x-8 text-xs uppercase tracking-widest">
-                                <a href="/" className="hover:opacity-50 transition-opacity">系列</a>
-                                <a href="/vendor/dashboard" className="hover:opacity-50 transition-opacity">供應商</a>
-                                <a href="/affiliate/dashboard" className="hover:opacity-50 transition-opacity">推廣者</a>
-                                <a href="/admin/dashboard" className="hover:opacity-50 transition-opacity">管理頁</a>
-                                <a href="/login" className="hover:opacity-50 transition-opacity">帳戶</a>
-                            </nav>
-                        </header>
+                        <Header />
                         <main className="pt-24 min-h-screen">
                             {children}
                         </main>
